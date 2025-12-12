@@ -61,9 +61,29 @@ export default defineConfig((/* ctx */) => {
       // distDir
 
       // Vite configuration
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       extendViteConf(viteConf) {
-        // Extend Vite config here if needed
+        // Fix macOS EMFILE error: only ignore build artifacts and dependencies
+        viteConf.server = viteConf.server || {};
+        viteConf.server.watch = {
+          ignored: [
+            // Dependencies
+            '**/node_modules/**',
+            // Version control
+            '**/.git/**',
+            // Build outputs
+            '**/dist/**',
+            '**/build/**',
+            '**/.quasar/**',
+            // Rust/Tauri build artifacts
+            '**/src-tauri/target/**',
+            '**/src-tauri/gen/**',
+            // IDE and cache
+            '**/.idea/**',
+            '**/.vscode/**',
+            '**/coverage/**',
+            '**/*.log',
+          ],
+        };
       },
 
       vitePlugins: [
