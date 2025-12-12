@@ -23,7 +23,7 @@
     "ios:dev": "tauri ios dev",
     "ios:build": "tauri ios build",
     "postinstall": "quasar prepare",
-    "check:watchman": "command -v /usr/local/bin/watchman >/dev/null 2>&1 || echo '⚠️  macOS users: run \"brew install watchman\" to avoid EMFILE errors'"
+    "check:watchman": "command -v watchman >/dev/null 2>&1 || echo '⚠️  macOS users: run \"brew install watchman\" to avoid EMFILE errors'"
   },
   "dependencies": {
     "@quasar/extras": "^1.17.0",
