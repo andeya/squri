@@ -40,6 +40,7 @@
 - 🌓 **Theme Support**: Light/Dark mode with instant switching and persistence
 - 📦 **State Management**: Pinia stores with localStorage persistence
 - 🔒 **Type Safe**: Full TypeScript support
+- 🛤️ **File-Based Routing**: Auto-generated routes from file structure
 
 ## 📸 Screenshots
 
@@ -137,7 +138,14 @@ squri/
 │   ├── composables/        # Vue composables (useMenu, useTauri)
 │   ├── css/                # Global styles
 │   ├── layouts/            # Layout components
-│   ├── pages/              # Page components
+│   ├── pages/              # Page components (file-based routing)
+│   │   ├── index.vue       # / (home page)
+│   │   ├── about.vue       # /about
+│   │   ├── profile.vue     # /profile
+│   │   ├── settings.vue    # /settings
+│   │   ├── [...all].vue    # /* (404 catch-all)
+│   │   └── user/
+│   │       └── [id].vue    # /user/:id (dynamic route)
 │   ├── router/             # Vue Router configuration
 │   └── stores/             # Pinia stores
 ├── src-tauri/              # Tauri backend (Rust)
@@ -357,6 +365,57 @@ Plugin permissions:
     "shell:allow-open"
   ]
 }
+```
+
+## 🛤️ File-Based Routing
+
+This project uses [unplugin-vue-router](https://github.com/posva/unplugin-vue-router) for automatic, type-safe routing based on file structure.
+
+### Route Conventions
+
+| File Path | Route | Description |
+|-----------|-------|-------------|
+| `src/pages/index.vue` | `/` | Home page |
+| `src/pages/about.vue` | `/about` | Static route |
+| `src/pages/user/[id].vue` | `/user/:id` | Dynamic parameter |
+| `src/pages/[...all].vue` | `/*` | Catch-all (404) |
+
+### Adding New Routes
+
+Simply create a `.vue` file in `src/pages/`:
+
+```bash
+# Create a new page
+touch src/pages/contact.vue  # → /contact
+
+# Create a nested route
+mkdir src/pages/blog
+touch src/pages/blog/index.vue     # → /blog
+touch src/pages/blog/[slug].vue    # → /blog/:slug
+```
+
+### Type-Safe Navigation
+
+```typescript
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+// Type-safe navigation with autocomplete
+router.push({ name: '/user/[id]', params: { id: '123' } });
+
+// Or use path directly
+router.push('/about');
+```
+
+### Accessing Route Params
+
+```typescript
+import { useRoute } from 'vue-router';
+
+// In src/pages/user/[id].vue
+const route = useRoute('/user/[id]');
+const userId = route.params.id; // TypeScript knows this is string
 ```
 
 ## 🔌 Tauri Plugins
