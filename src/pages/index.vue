@@ -252,3 +252,4 @@ const handleGetStarted = () => {
   min-width: 280px;
 }
 </style>
+

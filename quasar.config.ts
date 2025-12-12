@@ -88,6 +88,15 @@ export default defineConfig((/* ctx */) => {
 
       vitePlugins: [
         [
+          'unplugin-vue-router/vite',
+          {
+            routesFolder: 'src/pages',
+            extensions: ['.vue'],
+            exclude: ['**/components/**'],
+            dts: 'src/typed-router.d.ts',
+          },
+        ],
+        [
           'vite-plugin-checker',
           {
             vueTsc: true,

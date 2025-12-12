@@ -83,7 +83,12 @@
         <div class="row q-gutter-sm">
           <q-btn color="primary" label="Edit User" icon="edit" @click="handleEdit" />
           <q-btn color="secondary" label="Send Message" icon="message" @click="handleSendMessage" />
-          <q-btn color="warning" label="Reset Password" icon="lock_reset" @click="handleResetPassword" />
+          <q-btn
+            color="warning"
+            label="Reset Password"
+            icon="lock_reset"
+            @click="handleResetPassword"
+          />
           <q-btn color="negative" label="Delete User" icon="delete" @click="handleDelete" />
         </div>
       </q-card-section>
@@ -132,7 +137,8 @@ interface UserInfo {
   createdAt: string;
 }
 
-const route = useRoute();
+// Use type-safe route with route name for correct params type
+const route = useRoute('/user/[id]');
 const router = useRouter();
 const $q = useQuasar();
 
@@ -140,8 +146,8 @@ const $q = useQuasar();
 const loading = ref(false);
 const userInfo = ref<UserInfo | null>(null);
 
-// Computed properties
-const userId = computed(() => route.params.id as string);
+// Computed properties - ensure userId is always a string
+const userId = computed(() => String(route.params.id));
 
 const userStatus = computed(() => {
   if (!userInfo.value) return { color: 'grey', label: 'Unknown' };
@@ -170,9 +176,7 @@ const fetchUserInfo = async () => {
       phone: `138****${String(userId.value).padStart(4, '0')}`,
       role: Number(userId.value) === 1 ? 'Admin' : 'User',
       active: Number(userId.value) % 2 === 1,
-      createdAt: new Date(
-        Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000
-      ).toISOString(),
+      createdAt: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString(),
     };
 
     $q.notify({
@@ -252,12 +256,12 @@ onMounted(() => {
   void fetchUserInfo();
 });
 
-// Watch route changes
+// Watch route id changes
 watch(
   () => route.params.id,
   () => {
     void fetchUserInfo();
-  }
+  },
 );
 </script>
 
@@ -272,4 +276,3 @@ code {
   color: $primary;
 }
 </style>
-

@@ -5,7 +5,7 @@ import {
   createWebHashHistory,
   createWebHistory,
 } from 'vue-router';
-import routes from './routes';
+import { routes } from 'vue-router/auto-routes';
 
 /*
  * If not building with SSR mode, you can
@@ -16,6 +16,15 @@ import routes from './routes';
  * with the Router instance.
  */
 
+// Wrap all routes with MainLayout
+const wrappedRoutes = [
+  {
+    path: '/',
+    component: () => import('layouts/MainLayout.vue'),
+    children: routes,
+  },
+];
+
 export default defineRouter(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
@@ -25,7 +34,7 @@ export default defineRouter(function (/* { store, ssrContext } */) {
 
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
-    routes,
+    routes: wrappedRoutes,
 
     // Leave this as is and make changes in quasar.conf.js instead!
     // quasar.conf.js -> build -> vueRouterMode

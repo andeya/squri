@@ -1,4 +1,8 @@
 {
   "extends": "./.quasar/tsconfig.json",
+  "compilerOptions": {
+    "types": ["unplugin-vue-router/client"]
+  },
+  "include": ["src/**/*", "src/**/*.vue"],
   "exclude": ["node_modules", "src-tauri", "dist"]
 }

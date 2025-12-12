@@ -67,6 +67,9 @@ export default defineConfigWithVueTs(
 
       // allow debugger during development only
       'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+
+      // Disable multi-word component names for file-based routing
+      'vue/multi-word-component-names': 'off',
     },
   },
 
