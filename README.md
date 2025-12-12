@@ -203,12 +203,18 @@ npm run tauri:build -- --target x86_64-unknown-linux-gnu
 # Initialize iOS project (first time only)
 npm run ios:init
 
+# First-time setup: Open Xcode and set your Team
+open src-tauri/gen/apple/squri.xcodeproj
+# In Xcode: squri_iOS target → Signing & Capabilities → Team → Select your Apple ID
+
 # Development
 npm run ios:dev
 
 # Build
 npm run ios:build
 ```
+
+> **Note**: iOS requires code signing. Set your Team once in Xcode (free Apple ID works), then `ios:dev` will work directly.
 
 #### Android
 
