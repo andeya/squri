@@ -127,6 +127,18 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 
+// Define route meta for menu generation
+definePage({
+  meta: {
+    title: 'User Detail',
+    icon: 'people',
+    showInMenu: true,
+    order: 10,
+    badge: 'Dynamic',
+    badgeColor: 'primary',
+  },
+});
+
 interface UserInfo {
   id: number;
   username: string;

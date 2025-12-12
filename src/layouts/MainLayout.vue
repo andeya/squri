@@ -34,33 +34,33 @@
       <q-list>
         <q-item-label header>Navigation</q-item-label>
 
-        <q-item clickable v-ripple to="/" exact>
-          <q-item-section avatar>
-            <q-icon name="home" />
-          </q-item-section>
-          <q-item-section>Home</q-item-section>
-        </q-item>
+        <!-- Public menu items (auto-generated from route meta) -->
+        <template v-for="item in publicMenuItems" :key="item.path">
+          <q-item clickable v-ripple :to="item.path" :exact="item.path === '/'">
+            <q-item-section avatar>
+              <q-icon :name="item.icon" />
+            </q-item-section>
+            <q-item-section>{{ item.title }}</q-item-section>
+            <q-item-section v-if="item.badge" side>
+              <q-badge :color="item.badgeColor ?? 'primary'" :label="item.badge" />
+            </q-item-section>
+          </q-item>
+        </template>
 
-        <q-item clickable v-ripple to="/about">
-          <q-item-section avatar>
-            <q-icon name="info" />
-          </q-item-section>
-          <q-item-section>About</q-item-section>
-        </q-item>
-
-        <q-item clickable v-ripple to="/settings">
-          <q-item-section avatar>
-            <q-icon name="settings" />
-          </q-item-section>
-          <q-item-section>Settings</q-item-section>
-        </q-item>
-
-        <q-item v-if="userStore.isLogin" clickable v-ripple to="/profile">
-          <q-item-section avatar>
-            <q-icon name="person" />
-          </q-item-section>
-          <q-item-section>Profile</q-item-section>
-        </q-item>
+        <!-- Auth-required menu items -->
+        <template v-if="userStore.isLogin">
+          <template v-for="item in authMenuItems" :key="item.path">
+            <q-item clickable v-ripple :to="item.path">
+              <q-item-section avatar>
+                <q-icon :name="item.icon" />
+              </q-item-section>
+              <q-item-section>{{ item.title }}</q-item-section>
+              <q-item-section v-if="item.badge" side>
+                <q-badge :color="item.badgeColor ?? 'primary'" :label="item.badge" />
+              </q-item-section>
+            </q-item>
+          </template>
+        </template>
 
         <q-separator class="q-my-md" />
 
@@ -85,20 +85,6 @@
           <q-item-section>
             <q-item-label>Guest</q-item-label>
             <q-item-label caption>Not logged in</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-separator class="q-my-md" />
-
-        <q-item-label header>Quick Actions</q-item-label>
-
-        <q-item clickable v-ripple to="/user/1">
-          <q-item-section avatar>
-            <q-icon name="people" />
-          </q-item-section>
-          <q-item-section>User Demo</q-item-section>
-          <q-item-section side>
-            <q-badge color="primary" label="Dynamic" />
           </q-item-section>
         </q-item>
       </q-list>
@@ -131,6 +117,7 @@ import { useQuasar, Dark } from 'quasar';
 import { useAppStore } from 'stores/app';
 import { useUserStore } from 'stores/user';
 import { useTauriMenu } from 'src/composables/useMenu';
+import { useRouteMenu } from 'src/composables/useRouteMenu';
 
 const router = useRouter();
 const $q = useQuasar();
@@ -139,6 +126,9 @@ const userStore = useUserStore();
 
 // Initialize Tauri menu
 useTauriMenu();
+
+// Get menu items from route meta
+const { publicMenuItems, authMenuItems } = useRouteMenu();
 
 // Initialize user from storage
 onMounted(() => {

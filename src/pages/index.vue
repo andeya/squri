@@ -142,6 +142,16 @@ import { useQuasar } from 'quasar';
 import { useAppStore } from 'stores/app';
 import { useUserStore } from 'stores/user';
 
+// Define route meta for menu generation
+definePage({
+  meta: {
+    title: 'Home',
+    icon: 'home',
+    order: 1,
+    showInMenu: true,
+  },
+});
+
 const $q = useQuasar();
 const appStore = useAppStore();
 const userStore = useUserStore();

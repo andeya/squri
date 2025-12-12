@@ -19,6 +19,11 @@
 </template>
 
 <script setup lang="ts">
-//
+// Define route meta - 404 page not shown in menu
+definePage({
+  meta: {
+    title: 'Not Found',
+    showInMenu: false,
+  },
+});
 </script>
-

@@ -93,6 +93,17 @@ import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useUserStore } from 'stores/user';
 
+// Define route meta for menu generation
+definePage({
+  meta: {
+    title: 'Profile',
+    icon: 'person',
+    order: 4,
+    showInMenu: true,
+    requiresAuth: true,
+  },
+});
+
 const router = useRouter();
 const $q = useQuasar();
 const userStore = useUserStore();

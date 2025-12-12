@@ -94,6 +94,8 @@ export default defineConfig((/* ctx */) => {
             extensions: ['.vue'],
             exclude: ['**/components/**'],
             dts: 'src/typed-router.d.ts',
+            // Import meta types for definePage macro
+            importMode: 'async',
           },
         ],
         [

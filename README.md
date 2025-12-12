@@ -418,6 +418,53 @@ const route = useRoute('/user/[id]');
 const userId = route.params.id; // TypeScript knows this is string
 ```
 
+### Route Meta with `definePage`
+
+Use `definePage` macro to define route metadata directly in page components:
+
+```vue
+<script setup lang="ts">
+// Define route meta for menu generation
+definePage({
+  meta: {
+    title: 'Settings',       // Display title in menu
+    icon: 'settings',        // Material icon name
+    order: 3,                // Menu sort order (lower = higher priority)
+    showInMenu: true,        // Whether to show in navigation menu
+    requiresAuth: false,     // Whether route requires authentication
+    badge: 'New',            // Optional badge text
+    badgeColor: 'primary',   // Badge color
+  },
+});
+</script>
+```
+
+Available meta options:
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `title` | `string` | Display title in menu and page header |
+| `icon` | `string` | Material icon name for menu item |
+| `order` | `number` | Menu display order (lower = higher) |
+| `showInMenu` | `boolean` | Whether to show in navigation menu |
+| `requiresAuth` | `boolean` | Whether route requires authentication |
+| `badge` | `string` | Badge text to display on menu item |
+| `badgeColor` | `string` | Badge color (Quasar color name) |
+
+### Auto-Generated Menu
+
+The sidebar menu is automatically generated from routes with `showInMenu: true`:
+
+```typescript
+import { useRouteMenu } from 'src/composables/useRouteMenu';
+
+const { menuItems, publicMenuItems, authMenuItems } = useRouteMenu();
+
+// menuItems: All menu items sorted by order
+// publicMenuItems: Items that don't require auth
+// authMenuItems: Items that require auth
+```
+
 ## 🔌 Tauri Plugins
 
 | Plugin         | Description                | Usage                      |

@@ -158,6 +158,16 @@ import { ref, reactive, onMounted } from 'vue';
 import { useQuasar, Dark } from 'quasar';
 import { useAppStore } from 'stores/app';
 
+// Define route meta for menu generation
+definePage({
+  meta: {
+    title: 'Settings',
+    icon: 'settings',
+    order: 3,
+    showInMenu: true,
+  },
+});
+
 const $q = useQuasar();
 const appStore = useAppStore();
 

@@ -176,6 +176,16 @@ import { invoke } from '@tauri-apps/api/core';
 import { useAppStore } from 'stores/app';
 import { useTauriSystem, isTauri } from 'src/composables/useTauri';
 
+// Define route meta for menu generation
+definePage({
+  meta: {
+    title: 'About',
+    icon: 'info',
+    order: 2,
+    showInMenu: true,
+  },
+});
+
 const router = useRouter();
 const $q = useQuasar();
 const appStore = useAppStore();
