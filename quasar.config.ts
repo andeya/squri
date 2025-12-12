@@ -1,5 +1,6 @@
-// Configuration for your app
+// Quasar Configuration (Vite-based)
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file
+// Build tool: Vite (via @quasar/app-vite)
 
 import { defineConfig } from '#q-app/wrappers';
 
@@ -59,8 +60,11 @@ export default defineConfig((/* ctx */) => {
       // polyfillModulePreload: true,
       // distDir
 
-      // extendViteConf (viteConf) {},
-      // viteVuePluginOptions: {},
+      // Vite configuration
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      extendViteConf(viteConf) {
+        // Extend Vite config here if needed
+      },
 
       vitePlugins: [
         [
@@ -68,7 +72,7 @@ export default defineConfig((/* ctx */) => {
           {
             vueTsc: true,
             eslint: {
-              lintCommand: 'eslint -c ./eslint.config.js "./src*/**/*.{ts,js,mjs,cjs,vue}"',
+              lintCommand: 'eslint -c ./eslint.config.js "./src/**/*.{ts,js,mjs,cjs,vue}"',
               useFlatConfig: true,
             },
           },
@@ -79,13 +83,16 @@ export default defineConfig((/* ctx */) => {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver
     devServer: {
+      port: 9000,
       // https: true,
-      open: true, // opens browser window automatically
+      open: false, // set to true to auto-open browser
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#framework
     framework: {
-      config: {},
+      config: {
+        dark: 'auto', // 'auto' follows system preference, or true/false for forced mode
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -98,7 +105,7 @@ export default defineConfig((/* ctx */) => {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: ['Notify', 'Dialog', 'Dark'],
     },
 
     // animations: 'all', // --- includes all animations
