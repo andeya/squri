@@ -7,7 +7,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "quasar dev",
+    "dev": "if [ \"$(uname)\" = \"Darwin\" ]; then CHOKIDAR_USEPOLLING=true quasar dev; else quasar dev; fi",
     "build": "quasar build",
     "lint": "eslint -c ./eslint.config.js \"./src/**/*.{ts,js,cjs,mjs,vue}\"",
     "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
@@ -22,8 +22,7 @@
     "ios:init": "tauri ios init && npm run tauri:icon",
     "ios:dev": "tauri ios dev",
     "ios:build": "tauri ios build",
-    "postinstall": "quasar prepare",
-    "check:watchman": "command -v watchman >/dev/null 2>&1 || echo '⚠️  macOS users: run \"brew install watchman\" to avoid EMFILE errors'"
+    "postinstall": "quasar prepare"
   },
   "dependencies": {
     "@quasar/extras": "^1.17.0",

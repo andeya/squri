@@ -540,15 +540,15 @@ userStore.userName; // string
 
 #### macOS: EMFILE (too many open files)
 
-If you encounter `Error: EMFILE: too many open files, watch` when running dev commands on macOS, install Facebook Watchman:
+This project already includes a fix for the `EMFILE: too many open files` error. The dev script uses `CHOKIDAR_USEPOLLING=true` to avoid native file system event limits on macOS.
+
+If you still encounter issues, you can increase the file descriptor limit:
 
 ```bash
-brew install watchman
+ulimit -n 65536
 ```
 
-**Why this happens**: The Vite dev server uses chokidar to watch files for hot reload. On macOS, projects with many dependencies (like Quasar + Tauri) can exceed the system's file watching limits. Watchman is a high-performance file watching service that handles this efficiently.
-
-> Note: This issue only affects macOS. Linux and Windows users do not need Watchman.
+> Note: This issue primarily affects macOS. Linux and Windows typically have higher default limits.
 
 #### Port already in use
 

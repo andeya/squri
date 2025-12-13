@@ -60,31 +60,7 @@ export default defineConfig((/* ctx */) => {
       // polyfillModulePreload: true,
       // distDir
 
-      // Vite configuration
-      extendViteConf(viteConf) {
-        // Fix macOS EMFILE error: only ignore build artifacts and dependencies
-        viteConf.server = viteConf.server || {};
-        viteConf.server.watch = {
-          ignored: [
-            // Dependencies
-            '**/node_modules/**',
-            // Version control
-            '**/.git/**',
-            // Build outputs
-            '**/dist/**',
-            '**/build/**',
-            '**/.quasar/**',
-            // Rust/Tauri build artifacts
-            '**/src-tauri/target/**',
-            '**/src-tauri/gen/**',
-            // IDE and cache
-            '**/.idea/**',
-            '**/.vscode/**',
-            '**/coverage/**',
-            '**/*.log',
-          ],
-        };
-      },
+      // extendViteConf (viteConf) {},
 
       vitePlugins: [
         [
