@@ -1,0 +1,38 @@
+# Exclude build artifacts and dependencies from language statistics
+# This helps GitHub Linguist focus on source code (Rust & Vue)
+
+# Dependencies (vendor code)
+node_modules/** linguist-vendored=true
+src-tauri/target/** linguist-vendored=true
+dist/** linguist-vendored=true
+.quasar/** linguist-vendored=true
+
+# Generated files
+src/typed-router.d.ts linguist-generated=true
+src-tauri/gen/** linguist-generated=true
+
+# Lock files (optional - exclude from language stats)
+package-lock.json linguist-vendored=true
+Cargo.lock linguist-vendored=true
+
+# Documentation
+*.md linguist-documentation=true
+README.md linguist-documentation=true
+LICENSE linguist-documentation=true
+
+# Configuration files (usually not counted, but explicit)
+*.json linguist-detectable=false
+*.toml linguist-detectable=false
+*.config.js linguist-detectable=false
+*.config.ts linguist-detectable=false
+
+# Ensure Rust files are recognized
+*.rs linguist-language=Rust
+
+# Ensure Vue files are recognized
+*.vue linguist-language=Vue
+
+# TypeScript/JavaScript files (for Vue components)
+*.ts linguist-language=TypeScript
+*.js linguist-language=JavaScript
+
